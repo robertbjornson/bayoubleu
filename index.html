@@ -24,30 +24,37 @@
             max-width: 800px;
             margin: 20px auto;
         }
+        .gallery a {
+            display: block;
+        }
         .gallery img {
             width: 100%;
             height: auto;
             border-radius: 5px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
     <h1>Welcome to My Website</h1>
-    <p>This is a simple webpage with text and images hosted on GitHub Pages.</p>
+    <p>Click on any image to view the full-size version.</p>
 
     <div class="gallery">
-        <img src="images/BB_start_2.jpg" alt="Image 1">
-        <img src="images/image2.jpg" alt="Image 2">
-        <img src="images/image3.jpg" alt="Image 3">
-        <img src="images/image4.jpg" alt="Image 4">
-        <img src="images/image5.jpg" alt="Image 5">
-        <img src="images/image6.jpg" alt="Image 6">
-        <img src="images/image7.jpg" alt="Image 7">
-        <img src="images/image8.jpg" alt="Image 8">
-        <img src="images/image9.jpg" alt="Image 9">
-        <img src="images/image10.jpg" alt="Image 10">
+        <a href="images/BB_start_2.jpg" target="_blank"><img src="images/BB_start_2.jpg" alt="Image 1"></a>
+        <a href="images/image2.jpg" target="_blank"><img src="images/image2.jpg" alt="Image 2"></a>
+        <a href="images/image3.jpg" target="_blank"><img src="images/image3.jpg" alt="Image 3"></a>
+        <a href="images/image4.jpg" target="_blank"><img src="images/image4.jpg" alt="Image 4"></a>
+        <a href="images/image5.jpg" target="_blank"><img src="images/image5.jpg" alt="Image 5"></a>
+        <a href="images/image6.jpg" target="_blank"><img src="images/image6.jpg" alt="Image 6"></a>
+        <a href="images/image7.jpg" target="_blank"><img src="images/image7.jpg" alt="Image 7"></a>
+        <a href="images/image8.jpg" target="_blank"><img src="images/image8.jpg" alt="Image 8"></a>
+        <a href="images/image9.jpg" target="_blank"><img src="images/image9.jpg" alt="Image 9"></a>
+        <a href="images/image10.jpg" target="_blank"><img src="images/image10.jpg" alt="Image 10"></a>
     </div>
 
 </body>
