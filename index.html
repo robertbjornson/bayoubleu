@@ -12,10 +12,6 @@
         h1 {
             color: #333;
         }
-        p {
-            font-size: 18px;
-            color: #666;
-        }
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -23,23 +19,48 @@
             max-width: 800px;
             margin: 20px auto;
         }
-        .gallery a {
-            display: block;
-        }
         .gallery img {
             width: 100%;
             height: auto;
-            border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
         }
-        .gallery img:hover {
-            transform: scale(1.05);
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .lightbox .prev, .lightbox .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .lightbox .prev { left: 10px; }
+        .lightbox .next { right: 10px; }
+        .lightbox .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-
     <h1>J30 Bayou Bleu for sale</h1>
 
     <p><span style="color: rgb(102, 102, 102)">
@@ -65,8 +86,8 @@ I'm selling Bayou Bleu because I joined a consortium on a J/97.
 </p>
 <ul>
 <li>Neil Pryde Main, PXB, full battens 2018</li>
-<li>Neil Pryde #1 PXB Lightskin 2024</li>
-<li>Neil Pryde #3 Vectrix membrane in technora and with grey Liteskins. 2021</li>
+<li>Neil Pryde #1 PXB Liteskin 2024</li>
+<li>Neil Pryde #3 Vectrix membrane in technora and with grey Liteskin. 2021</li>
 <li>Neil Pryde Spinnaker 2018</li>
 <li>Full set of older sails (main, #1, #3, spinnaker)</li>
 </ul>
@@ -76,7 +97,7 @@ I'm selling Bayou Bleu because I joined a consortium on a J/97.
 <ul><li>Garmin wired sailpack 43 (wind, depth, compass, speed)</li>
 <li>3 Garmin displays (GNX Wind and (2) GNX 20)</li>
 <li>Garmin echoMAP chartplotter mounted on arm</li>
-<li>Brand new, ready to install, Garmin wind instrument</li>
+<li>Brand new, ready to install, Garmin masthead wind instrument</li>
 </ul>
 <li>VHF radio</li>
 <li>Simrad Tillerpilot TP10 2020</li>
@@ -116,46 +137,51 @@ I'm selling Bayou Bleu because I joined a consortium on a J/97.
 
 <p>Click on any image to view the full-size version.</p>
 
+
 <div class="gallery">
-
-<a href="images/BBspinnaker_finish.jpg" target="_blank"><img src="images/BBspinnaker_finish.jpg" alt="BBspinnaker_finish.jpg"></a>
-<a href="images/BB_start_2.jpg" target="_blank"><img src="images/BB_start_2.jpg" alt="BB_start_2.jpg"></a>
-<a href="images/BB_at_dock.jpg" target="_blank"><img src="images/BB_at_dock.jpg" alt="BB_at_dock.jpg"></a>
-<a href="images/house_forward2.jpg" target="_blank"><img src="images/house_forward2.jpg" alt="house_forward2.jpg"></a>
-<a href="images/house_forward3.jpg" target="_blank"><img src="images/house_forward3.jpg" alt="house_forward3.jpg"></a>
-<a href="images/house_forward.jpg" target="_blank"><img src="images/house_forward.jpg" alt="house_forward.jpg"></a>
-<a href="images/salon_forward2.jpg" target="_blank"><img src="images/salon_forward2.jpg" alt="salon_forward2.jpg"></a>
-<a href="images/salon_forward.jpg" target="_blank"><img src="images/salon_forward.jpg" alt="salon_forward.jpg"></a>
-<a href="images/vberth_aft2.jpg" target="_blank"><img src="images/vberth_aft2.jpg" alt="vberth_aft2.jpg"></a>
-<a href="images/vberth_aft.jpg" target="_blank"><img src="images/vberth_aft.jpg" alt="vberth_aft.jpg"></a>
-<a href="images/vberth.jpg" target="_blank"><img src="images/vberth.jpg" alt="vberth.jpg"></a>
-<a href="images/chart_table.jpg" target="_blank"><img src="images/chart_table.jpg" alt="chart_table.jpg"></a>
-<a href="images/vhf.jpg" target="_blank"><img src="images/vhf.jpg" alt="vhf.jpg"></a>
-<a href="images/galley1.jpg" target="_blank"><img src="images/galley1.jpg" alt="galley1.jpg"></a>
-<a href="images/galley2.jpg" target="_blank"><img src="images/galley2.jpg" alt="galley2.jpg"></a>
-<a href="images/icebox.jpg" target="_blank"><img src="images/icebox.jpg" alt="icebox.jpg"></a>
-<a href="images/head1.jpg" target="_blank"><img src="images/head1.jpg" alt="head1.jpg"></a>
-<a href="images/head2.jpg" target="_blank"><img src="images/head2.jpg" alt="head2.jpg"></a>
-<a href="images/engine1.jpg" target="_blank"><img src="images/engine1.jpg" alt="engine1.jpg"></a>
-<a href="images/engine2.jpg" target="_blank"><img src="images/engine2.jpg" alt="engine2.jpg"></a>
-<a href="images/stuffing.jpg" target="_blank"><img src="images/stuffing.jpg" alt="stuffing.jpg"></a>
-<a href="images/cockpit1.jpg" target="_blank"><img src="images/cockpit1.jpg" alt="cockpit1.jpg"></a>
-<a href="images/cockpit2.jpg" target="_blank"><img src="images/cockpit2.jpg" alt="cockpit2.jpg"></a>
-<a href="images/companionway1.jpg" target="_blank"><img src="images/companionway1.jpg" alt="companionway1.jpg"></a>
-<a href="images/deck_aft.jpg" target="_blank"><img src="images/deck_aft.jpg" alt="deck_aft.jpg"></a>
-<a href="images/vang.jpg" target="_blank"><img src="images/vang.jpg" alt="vang.jpg"></a>
-<a href="images/barient_winch.jpg" target="_blank"><img src="images/barient_winch.jpg" alt="barient_winch.jpg"></a>
-<a href="images/lewmar_winch.jpg" target="_blank"><img src="images/lewmar_winch.jpg" alt="lewmar_winch.jpg"></a>
-<a href="images/strbrd_side2.jpg" target="_blank"><img src="images/strbrd_side2.jpg" alt="strbrd_side2.jpg"></a>
-<a href="images/strbrd_side3.jpg" target="_blank"><img src="images/strbrd_side3.jpg" alt="strbrd_side3.jpg"></a>
-<a href="images/strbrd_side.jpg" target="_blank"><img src="images/strbrd_side.jpg" alt="strbrd_side.jpg"></a>
-<a href="images/bottom.jpg" target="_blank"><img src="images/bottom.jpg" alt="bottom.jpg"></a>
-<a href="images/mast1.jpg" target="_blank"><img src="images/mast1.jpg" alt="mast1.jpg"></a>
-<a href="images/onstands.jpg" target="_blank"><img src="images/onstands.jpg" alt="onstands.jpg"></a>
-<a href="images/prop1.jpg" target="_blank"><img src="images/prop1.jpg" alt="prop1.jpg"></a>
-<a href="images/rudder.jpg" target="_blank"><img src="images/rudder.jpg" alt="rudder.jpg"></a>
-<a href="images/keel.jpg" target="_blank"><img src="images/keel.jpg" alt="keel.jpg"></a>
+        <script>
+          const images = ["BBspinnaker_finish.jpg", "BB_start_2.jpg", "BB_at_dock.jpg", "house_forward2.jpg", "house_forward3.jpg", "house_forward.jpg", "salon_forward2.jpg", "salon_forward.jpg", "vberth_aft2.jpg", "vberth_aft.jpg", "vberth.jpg", "chart_table.jpg", "vhf.jpg", "galley1.jpg", "galley2.jpg", "icebox.jpg", "head1.jpg", "head2.jpg", "engine1.jpg", "engine2.jpg", "stuffing.jpg", "cockpit1.jpg", "cockpit2.jpg", "companionway1.jpg", "deck_aft.jpg", "vang.jpg", "barient_winch.jpg", "lewmar_winch.jpg", "strbrd_side2.jpg", "strbrd_side3.jpg", "strbrd_side.jpg", "bottom.jpg", "mast1.jpg", "onstands.jpg", "prop1.jpg", "rudder.jpg", "keel.jpg"];
+            images.forEach((img, index) => {
+                document.write(`<a href="#" onclick="openLightbox(${index})"><img src="images/${img}" alt="${img}"></a>`);
+            });
+        </script>
     </div>
+    
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+        <img id="lightbox-img" src="">
+        <span class="next" onclick="changeImage(1)">&#10095;</span>
+    </div>
+    
+    <script>
+        let currentIndex = 0;
+        const imageList = document.querySelectorAll(".gallery img");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
 
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = imageList[currentIndex].src;
+            lightbox.style.display = "flex";
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = "none";
+        }
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = imageList.length - 1;
+            if (currentIndex >= imageList.length) currentIndex = 0;
+            lightboxImg.src = imageList[currentIndex].src;
+        }
+        
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") changeImage(1);
+            if (e.key === "ArrowLeft") changeImage(-1);
+            if (e.key === "Escape") closeLightbox();
+        });
+    </script>
 </body>
 </html>
