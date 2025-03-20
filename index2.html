@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .lightbox .prev, .lightbox .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .lightbox .prev { left: 10px; }
+        .lightbox .next { right: 10px; }
+        .lightbox .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>J30 Bayou Bleu for sale</h1>
+    <p>Click on any image to view the full-size version.</p>
+    <div class="gallery">
+        <script>
+            const images = [
+                "BBspinnaker_finish.jpg", "BB_start_2.jpg", "BB_at_dock.jpg",
+                "house_forward2.jpg", "house_forward3.jpg", "house_forward.jpg",
+                "salon_forward2.jpg", "salon_forward.jpg", "vberth_aft2.jpg"
+            ];
+            images.forEach((img, index) => {
+                document.write(`<a href="#" onclick="openLightbox(${index})"><img src="images/${img}" alt="${img}"></a>`);
+            });
+        </script>
+    </div>
+    
+    <div class="lightbox" id="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+        <img id="lightbox-img" src="">
+        <span class="next" onclick="changeImage(1)">&#10095;</span>
+    </div>
+    
+    <script>
+        let currentIndex = 0;
+        const imageList = document.querySelectorAll(".gallery img");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = imageList[currentIndex].src;
+            lightbox.style.display = "flex";
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = "none";
+        }
+
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = imageList.length - 1;
+            if (currentIndex >= imageList.length) currentIndex = 0;
+            lightboxImg.src = imageList[currentIndex].src;
+        }
+        
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") changeImage(1);
+            if (e.key === "ArrowLeft") changeImage(-1);
+            if (e.key === "Escape") closeLightbox();
+        });
+    </script>
+</body>
+</html>
