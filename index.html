@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Website</title>
+    <title>BayouBleu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
             max-width: 800px;
             margin: 20px auto;
         }
-        .gallery img {
+        .gallery img, .gallery video {
             width: 100%;
             height: auto;
             cursor: pointer;
@@ -34,8 +34,10 @@
             background: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
+	    z-index: 1000;
         }
-        .lightbox img {
+        .lightbox-content img,
+	lightbox-content video {
             max-width: 90%;
             max-height: 90%;
         }
@@ -83,7 +85,8 @@ Many upgrades, including instruments, sails, rigging.
 I'm reluctantly selling Bayou Bleu because I joined a consortium on a J/97.
 <p>
 Bayou Bleu is currently on the hard in Branford CT.
-
+<p>
+$17,500  
 <p><strong>Contact</strong>
 rbjornson@gmail.com
 
@@ -149,53 +152,112 @@ rbjornson@gmail.com
 <li>Bayou Bleu is ready to race and/or cruise.</li>
 </ul>
 
+<p><strong>J30 Info</strong>
+    <p></p>
+    <ul>
+ <li> <a href="https://jboats.com/j30/j30-sailing-review"> j30-sailing-review </a> </li>
+<li><a href="https://jboats.com/j30/j30-sailing-cruising-review"> j30-cruising-review </a> </li>
+<ul>
 <p>Click on any image to view the full-size version.</p>
 
 
-<div class="gallery">
-        <script>
-          const images = ["IMG_5351.MP4", "BBspinnaker_finish.jpg", "BB_start_2.jpg", "BB_at_dock.jpg", "house_forward2.jpg", "house_forward3.jpg", "house_forward.jpg", "salon_forward2.jpg", "salon_forward.jpg", "vberth_aft2.jpg", "vberth_aft.jpg", "vberth.jpg", "chart_table.jpg", "vhf.jpg", "galley1.jpg", "galley2.jpg", "icebox.jpg", "head1.jpg", "head2.jpg", "engine1.jpg", "engine2.jpg", "stuffing.jpg", "cockpit1.jpg", "cockpit2.jpg", "companionway1.jpg", "deck_aft.jpg", "vang.jpg", "barient_winch.jpg", "lewmar_winch.jpg", "strbrd_side2.jpg", "strbrd_side3.jpg", "strbrd_side.jpg", "bottom.jpg", "mast1.jpg", "onstands.jpg", "prop1.jpg", "rudder.jpg", "keel.jpg"];
-            images.forEach((img, index) => {
-                document.write(`<a href="#" onclick="openLightbox(${index})"><img src="images/${img}" alt="${img}"></a>`);
-            });
-        </script>
-    </div>
-    
+
+    <div class="gallery" id="gallery"></div>
+
     <div class="lightbox" id="lightbox">
         <span class="close" onclick="closeLightbox()">&times;</span>
-        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-        <img id="lightbox-img" src="">
-        <span class="next" onclick="changeImage(1)">&#10095;</span>
+        <span class="prev" onclick="changeMedia(-1)">&#10094;</span>
+        <div class="lightbox-content" id="lightbox-content"></div>
+        <span class="next" onclick="changeMedia(1)">&#10095;</span>
     </div>
-    
+
     <script>
-        let currentIndex = 0;
-        const imageList = document.querySelectorAll(".gallery img");
+    const mediaFiles = ["IMG_5351.mp4", "BBspinnaker_finish.jpg", "BB_start_2.jpg",
+		    "BB_at_dock.jpg", "house_forward2.jpg", "house_forward3.jpg",
+		    "house_forward.jpg", "salon_forward2.jpg", "salon_forward.jpg",
+		    "vberth_aft2.jpg", "vberth_aft.jpg", "vberth.jpg",
+		    "chart_table.jpg", "vhf.jpg", "galley1.jpg", "galley2.jpg",
+		    "icebox.jpg", "head1.jpg", "head2.jpg", "engine1.jpg",
+		    "engine2.jpg", "stuffing.jpg", "cockpit1.jpg", "cockpit2.jpg",
+		    "companionway1.jpg", "deck_aft.jpg", "vang.jpg", "barient_winch.jpg",
+		    "lewmar_winch.jpg", "strbrd_side2.jpg", "strbrd_side3.jpg",
+			"strbrd_side.jpg", "bottom.jpg", "mast1.jpg", "onstands.jpg",
+			"prop1.jpg", "rudder.jpg", "keel.jpg"];
+
+
+        const gallery = document.getElementById("gallery");
         const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxContent = document.getElementById("lightbox-content");
+
+        let currentIndex = 0;
+
+        mediaFiles.forEach((file, index) => {
+            const ext = file.split('.').pop().toLowerCase();
+            let element;
+            if (ext === 'mp4') {
+                element = document.createElement('video');
+                element.src = `images/${file}`;
+                element.muted = true;
+                element.playsInline = true;
+                element.loop = true;
+                element.autoplay = true;
+            } else {
+                element = document.createElement('img');
+                element.src = `images/${file}`;
+            }
+            element.alt = file;
+            element.addEventListener('click', () => openLightbox(index));
+            gallery.appendChild(element);
+        });
 
         function openLightbox(index) {
             currentIndex = index;
-            lightboxImg.src = imageList[currentIndex].src;
+            updateLightbox();
             lightbox.style.display = "flex";
         }
 
         function closeLightbox() {
             lightbox.style.display = "none";
+            lightboxContent.innerHTML = '';
         }
 
-        function changeImage(direction) {
+        function changeMedia(direction) {
             currentIndex += direction;
-            if (currentIndex < 0) currentIndex = imageList.length - 1;
-            if (currentIndex >= imageList.length) currentIndex = 0;
-            lightboxImg.src = imageList[currentIndex].src;
+            if (currentIndex < 0) currentIndex = mediaFiles.length - 1;
+            if (currentIndex >= mediaFiles.length) currentIndex = 0;
+            updateLightbox();
         }
-        
+
+        function updateLightbox() {
+            const file = mediaFiles[currentIndex];
+            const ext = file.split('.').pop().toLowerCase();
+            lightboxContent.innerHTML = '';
+
+            if (ext === 'mp4') {
+                const video = document.createElement('video');
+                video.src = `images/${file}`;
+                video.controls = true;
+                video.autoplay = true;
+                video.style.maxWidth = '90%';
+                video.style.maxHeight = '90%';
+                lightboxContent.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = `images/${file}`;
+                img.alt = file;
+                img.style.maxWidth = '90%';
+                img.style.maxHeight = '90%';
+                lightboxContent.appendChild(img);
+            }
+        }
+
         document.addEventListener("keydown", (e) => {
-            if (e.key === "ArrowRight") changeImage(1);
-            if (e.key === "ArrowLeft") changeImage(-1);
+            if (e.key === "ArrowRight") changeMedia(1);
+            if (e.key === "ArrowLeft") changeMedia(-1);
             if (e.key === "Escape") closeLightbox();
         });
     </script>
 </body>
 </html>
+
+
